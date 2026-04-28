@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../Theme/app_theme.dart';
 import '../../data/models/person_model.dart';
+import '../../services/people/people_cubit.dart';
 
 class PersonListTile extends StatelessWidget {
   final Person person;
@@ -69,9 +71,13 @@ class PersonListTile extends StatelessWidget {
                 ),
               ],
             ),
-            trailing: const Icon(
-              Icons.chevron_right,
-              color: AppTheme.textSecondary,
+            trailing: IconButton(
+              onPressed: context.read<PeopleCubit>().toggleFavourite(
+                person.isFavorite,
+              ),
+              icon: Icon(
+                person.isFavorite ? Icons.favorite : Icons.favorite_border,
+              ),
             ),
             onTap: onTap,
           ),

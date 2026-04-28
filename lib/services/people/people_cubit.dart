@@ -22,6 +22,27 @@ class PeopleCubit extends Cubit<PeopleState> {
     }
   }
 
+  void toggleFavourite(bool favorite) {
+    if (state is PeopleLoaded) {
+      final currentState = state as PeopleLoaded;
+      final index = currentState.filteredPeople.indexWhere(
+        (person) => person.isFavorite == favorite,
+      );
+      if (index != -1) {
+        final updatedPerson = currentState.filteredPeople[index].copyWith(
+          isFavorite: !favorite,
+        );
+        final updatedPeople = [
+          ...currentState.filteredPeople.sublist(0, index),
+          updatedPerson,
+          ...currentState.filteredPeople.sublist(index + 1),
+        ];
+        emit(currentState.copyWith(filteredPeople: updatedPeople));
+      }
+    }
+    return;
+  }
+
   void searchPeople(String query) {
     if (state is PeopleLoaded) {
       final currentState = state as PeopleLoaded;
