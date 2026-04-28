@@ -19,7 +19,7 @@ void main() {
       expect(person.firstName, 'Sri');
       expect(person.lastName, 'Hari');
       expect(person.fullName, 'Sri Hari');
-      expect(person.email, 'Sri.Hari@example.com');
+      expect(person.email, 'Sri.Hari@gmail.com');
       expect(person.imageUrl, 'https://example.com/img.jpg');
       expect(person.city, 'London');
       expect(person.country, 'UK');

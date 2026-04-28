@@ -16,25 +16,29 @@ class PeopleLoaded extends PeopleState {
   final List<Person> allPeople;
   final List<Person> filteredPeople;
   final String searchQuery;
+  final bool showFavoritesOnly;
 
   const PeopleLoaded({
     required this.allPeople,
     required this.filteredPeople,
     this.searchQuery = '',
+    this.showFavoritesOnly = false,
   });
 
   @override
-  List<Object?> get props => [allPeople, filteredPeople, searchQuery];
+  List<Object?> get props => [allPeople, filteredPeople, searchQuery, showFavoritesOnly];
 
   PeopleLoaded copyWith({
     List<Person>? allPeople,
     List<Person>? filteredPeople,
     String? searchQuery,
+    bool? showFavoritesOnly,
   }) {
     return PeopleLoaded(
       allPeople: allPeople ?? this.allPeople,
       filteredPeople: filteredPeople ?? this.filteredPeople,
       searchQuery: searchQuery ?? this.searchQuery,
+      showFavoritesOnly: showFavoritesOnly ?? this.showFavoritesOnly,
     );
   }
 }

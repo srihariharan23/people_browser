@@ -5,6 +5,7 @@ import 'package:people_browser/data/models/person_model.dart';
 import 'package:people_browser/data/repositories/people_repository.dart';
 import 'package:people_browser/services/people/people_cubit.dart';
 import 'package:people_browser/services/people/people_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MockPeopleRepository extends Mock implements PeopleRepository {}
 
@@ -36,6 +37,7 @@ void main() {
   ];
 
   setUp(() {
+    SharedPreferences.setMockInitialValues({});
     mockRepository = MockPeopleRepository();
     cubit = PeopleCubit(mockRepository);
   });

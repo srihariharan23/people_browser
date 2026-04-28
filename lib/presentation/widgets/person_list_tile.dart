@@ -72,8 +72,8 @@ class PersonListTile extends StatelessWidget {
               ],
             ),
             trailing: IconButton(
-              onPressed: context.read<PeopleCubit>().toggleFavourite(
-                person.isFavorite,
+              onPressed: () => context.read<PeopleCubit>().toggleFavourite(
+                person.id,
               ),
               icon: Icon(
                 person.isFavorite ? Icons.favorite : Icons.favorite_border,

@@ -31,6 +31,22 @@ class _PeopleListScreenState extends State<PeopleListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('People Browser'),
+        actions: [
+          BlocBuilder<PeopleCubit, PeopleState>(
+            builder: (context, state) {
+              final isFavoritesOnly = state is PeopleLoaded && state.showFavoritesOnly;
+              return IconButton(
+                icon: Icon(
+                  isFavoritesOnly ? Icons.favorite : Icons.favorite_border,
+                  color: isFavoritesOnly ? Colors.red : null,
+                ),
+                onPressed: () {
+                  context.read<PeopleCubit>().toggleShowFavorites();
+                },
+              );
+            },
+          ),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(60),
           child: Padding(
@@ -85,9 +101,16 @@ class _PeopleListScreenState extends State<PeopleListScreen> {
             return const EmptyView(message: 'Try something else.');
           } else if (state is PeopleLoaded) {
             if (state.filteredPeople.isEmpty) {
-              return const EmptyView(
-                title: 'No matched results',
-                message: 'We couldn\'t find anyone matching your search.',
+              return EmptyView(
+                title: state.showFavoritesOnly && state.searchQuery.isEmpty 
+                    ? 'No favorites yet' 
+                    : 'No matched results',
+                message: state.showFavoritesOnly && state.searchQuery.isEmpty 
+                    ? 'You haven\'t added anyone to your favorites.' 
+                    : 'We couldn\'t find anyone matching your search.',
+                icon: state.showFavoritesOnly && state.searchQuery.isEmpty 
+                    ? Icons.favorite_border 
+                    : Icons.search_off_rounded,
               );
             }
             return RefreshIndicator(
